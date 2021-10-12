@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    .red_border {
+      border: 2px solid red;
+    }
+    input, #comment {
+      display: flex;
+    }
+    .input_div {
+      display: flex;
+    }
+    #main_block {
+      display: block;
+    }
+  </style>
+  <div id="main_div">
+
+    <div class="input_div">
+      <label>Nickname
+        <!-- Текстове поле (input) - nickname -->
+        <input onblur="checkNickname(this)" id="nickname">
+      </label>
+
+    </div>
+    <div class="input_div">
+      <label>Name:
+        <!-- Текстове поле (input) - name. --> 
+        <input onblur="checkName(this)" id="name">
+      </label>
+    </div>
+    <div class="input_div">
+      <label>Comment:
+          <textarea name="comment" id="comment" onblur = "checkComment(this)"></textarea>
+      </label>
+
+    </div>
+    <button type="button" onclick="addComment()" id="button">Add Comment</button>
+   
+  </div>
+  <ul id="list_of_comments"></ul>
+  
+  
+  <script type="text/javascript">
+    function alphaOnly(event) {
+        var key = event.keyCode;
+        return ((key >= 65 && key <= 90) || key == 8);
+    };
+    // Якщо хоч одна умова не виконується, додати червону рамку цьому текстовому полю, умови:
+    // довжина мінімум 3 символа (включно),
+    // максимум 24 символа (включно)
+    // мінімум 1 буква
+    function checkNickname(elem) {
+      let letter = /^[0-9a-zA-Z]*$/;
+        if ((elem.value.length < 3 || elem.value.length > 24) || !elem.value.match(letter)) {
+          elem.classList.add("red_border");
+        }
+        else{
+          elem.classList.remove("red_border");
+        }
+    }
+
+    // Якщо хоч одна умова не виконується, додати червону рамку цьому текстовому полю, умови:
+    // довжина мінімум 1(включно), максимум 100 (включно)
+    // За допомогою JavaScript дозвольте вводити тільки букви (англійські).
+    function checkName(elem) {
+      let letter = /^[a-zA-Z]*$/;
+        if ((elem.value.length < 3 || elem.value.length > 24) || !elem.value.match(letter)) {
+          elem.classList.add("red_border");
+        }
+        else{
+          elem.classList.remove("red_border");
+        }
+    }
+
+    function checkComment(elem) {
+      let letter = /^[a-zA-Z,.!? ]*$/;
+        if ((elem.value.length < 1 || elem.value.length > 1000) || !elem.value.match(letter)) {
+          elem.classList.add("red_border");
+        }
+        else{
+          elem.classList.remove("red_border");
+        }
+    }
+
+    
+
+    function addComment(){
+    	let nicknameValue = document.querySelector("#nickname").value;
+	    let nameValue = document.querySelector("#name").value;
+	    let commentValue = document.querySelector("#comment").value;
+      if(nicknameValue.length != 0 && nameValue.length != 0 && commentValue.length != 0){
+        const newElem = document.createElement("DIV");
+        const commentList = document.querySelector("#list_of_comments");
+        
+        newElem.textContent = `${nicknameValue} - ${nameValue} \n ${commentValue}`;
+        commentList.prepend(newElem);
+      }
+      else{
+        const button = document.querySelector("#button");
+        button.setAttribute("disabled", "disabled");
+      } 
+
+    }
+    
+
+  </script>
+  <script src="HW_6.js"></script>
+</body>
+</html>
